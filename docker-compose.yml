@@ -1,0 +1,26 @@
+services:
+  app:
+    build: .
+    container_name: app-hola-mundo
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    networks:
+      - red-hola
+
+  db:
+    image: mongo:latest
+    container_name: db-hola-mundo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./database:/data/db
+    networks:
+      - red-hola
+
+networks:
+  red-hola:
+    driver: bridge
