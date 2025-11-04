@@ -1,0 +1,11 @@
+﻿# Dependencies
+node_modules/
+
+# Database files
+database/
+
+# Environment variables
+.env
+
+# Logs
+npm-debug.log*

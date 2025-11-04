@@ -6,6 +6,7 @@ const cors = require("cors");
 const app = express();
 app.use(cors());
 
+// CORREGIR ESTA LÍNEA:
 const dbPath = path.join(__dirname, "../database/data.json");
 const data = JSON.parse(fs.readFileSync(dbPath, "utf8"));
 
