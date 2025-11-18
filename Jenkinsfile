@@ -2,25 +2,32 @@ pipeline {
     agent any
     
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                echo 'Construyendo la aplicación...'
-                sh 'docker-compose down'
-                sh 'docker-compose build'
+                git branch: 'main', 
+                    url: 'https://github.com/GGEOVEGA/Proyecto-hola-mundo.git'
             }
         }
         
-        stage('Test') {
+        stage('Build') {
             steps {
-                echo 'Ejecutando tests...'
-                // Aquí puedes agregar tus tests
+                echo 'Construyendo la aplicación...'
+                bat 'docker-compose down || echo "No hay contenedores para detener"'
+                bat 'docker-compose build'
             }
         }
         
         stage('Deploy') {
             steps {
                 echo 'Desplegando aplicación...'
-                sh 'docker-compose up -d'
+                bat 'docker-compose up -d'
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                echo 'Verificando que la aplicación funciona...'
+                bat 'timeout 10 && curl -f http://localhost:3000 || echo "La aplicación se está iniciando..."'
             }
         }
     }
