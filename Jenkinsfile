@@ -27,7 +27,8 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Verificando que la aplicación funciona...'
-                bat 'timeout 10 && curl -f http://localhost:3000 || echo "La aplicación se está iniciando..."'
+                bat 'ping -n 10 127.0.0.1 > nul'
+                bat 'curl -f http://localhost:3000 || echo "La aplicación está iniciándose"'
             }
         }
     }
